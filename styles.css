@@ -1,0 +1,593 @@
+
+
+/* Variables CSS avancées */
+:root {
+  --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  --accent-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  --dark-bg: #0a0a0a;
+  --darker-bg: #050505;
+  --card-bg: rgba(255, 255, 255, 0.02);
+  --glass-bg: rgba(255, 255, 255, 0.05);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --text-primary: #ffffff;
+  --text-secondary: rgba(255, 255, 255, 0.7);
+  --shadow-glow: 0 0 50px rgba(102, 126, 234, 0.3);
+  --shadow-intense: 0 25px 50px rgba(0, 0, 0, 0.5);
+}
+
+/* Reset avancé */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--dark-bg);
+  color: var(--text-primary);
+  line-height: 1.7;
+  overflow-x: hidden;
+  background-image: 
+    radial-gradient(circle at 10% 20%, rgba(102, 126, 234, 0.1) 0%, transparent 20%),
+    radial-gradient(circle at 90% 80%, rgba(118, 75, 162, 0.1) 0%, transparent 20%);
+  position: relative;
+}
+
+/* Effet de particules animées en arrière-plan */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(2px 2px at 20% 30%, rgba(102, 126, 234, 0.3) 50%, transparent 100%),
+    radial-gradient(2px 2px at 40% 70%, rgba(118, 75, 162, 0.3) 50%, transparent 100%),
+    radial-gradient(2px 2px at 60% 20%, rgba(79, 172, 254, 0.3) 50%, transparent 100%),
+    radial-gradient(2px 2px at 80% 50%, rgba(240, 147, 251, 0.3) 50%, transparent 100%);
+  background-size: 200px 200px;
+  animation: float 20s infinite linear;
+  z-index: -1;
+}
+
+@keyframes float {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(-100px, -100px); }
+}
+
+/*  SECTION LOGO AVEC EFFET NEUMORPHISME  */
+.logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 4rem 0 2rem;
+  position: relative;
+}
+
+.logo::before {
+  content: '';
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  background: var(--primary-gradient);
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0.3;
+  animation: pulse 4s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 0.3; }
+  50% { transform: scale(1.1); opacity: 0.5; }
+}
+
+.logo img {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid transparent;
+  background: 
+    linear-gradient(var(--dark-bg), var(--dark-bg)) padding-box,
+    var(--primary-gradient) border-box;
+  box-shadow: 
+    var(--shadow-glow),
+    inset 0 2px 10px rgba(255, 255, 255, 0.1);
+  transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  position: relative;
+  z-index: 2;
+}
+
+.logo img:hover {
+  transform: scale(1.05) rotate(5deg);
+  box-shadow: 
+    0 0 80px rgba(102, 126, 234, 0.5),
+    inset 0 2px 20px rgba(255, 255, 255, 0.2);
+}
+
+/*  SECTION TITRE AVEC TYPOGRAPHIE AVANCEE  */
+.title {
+  text-align: center;
+  padding: 3rem 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 200px;
+  height: 2px;
+  background: var(--primary-gradient);
+  border-radius: 2px;
+}
+
+.title h1 {
+  font-size: 5rem;
+  font-weight: 800;
+  background: var(--primary-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 1rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  position: relative;
+  animation: titleGlow 3s ease-in-out infinite;
+}
+
+@keyframes titleGlow {
+  0%, 100% { text-shadow: 0 0 20px rgba(102, 126, 234, 0.5); }
+  50% { text-shadow: 0 0 30px rgba(102, 126, 234, 0.8), 0 0 40px rgba(102, 126, 234, 0.6); }
+}
+
+.title h2 {
+  font-size: 1.4rem;
+  font-weight: 300;
+  color: var(--text-secondary);
+  letter-spacing: 8px;
+  text-transform: uppercase;
+  position: relative;
+  display: inline-block;
+}
+
+.title h2::before,
+.title h2::after {
+  content: '◆';
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+}
+
+.title h2::before { left: -40px; }
+.title h2::after { right: -40px; }
+
+/* SEPARATEUR HR   */
+.hr {
+  border: none;
+  height: 1px;
+  background: linear-gradient(90deg, 
+    transparent, 
+    var(--glass-border), 
+    var(--glass-border), 
+    transparent);
+  margin: 3rem auto;
+  max-width: 80%;
+  position: relative;
+}
+/*  LIEN SDBSN CODES   */
+.sdbsn-codes{
+    color: var(--text-primary);
+    text-decoration: none;
+    font-weight: 600;
+    background: var(--primary-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+.sdbsn-codes:hover{
+    text-decoration: underline;
+}
+.sdbsn-codes::after {
+    content: ' - SDBSN CODES';
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+
+} 
+.sdbsn-codes a {
+    color: var(--text-primary);
+    text-decoration: none;
+}                                              
+
+.hr::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 8px;
+  height: 8px;
+  background: var(--primary-gradient);
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(102, 126, 234, 0.8);
+}
+
+/*  SECTION HISTOIRE AVEC EFFET GLASS MORPHISM  */
+.histoire {
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  margin: 3rem auto;
+  padding: 4rem;
+  max-width: 85%;
+  border-radius: 24px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-intense);
+}
+
+.histoire::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: var(--primary-gradient);
+  opacity: 0.03;
+  animation: rotate 20s linear infinite;
+}
+
+@keyframes rotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.histoire p {
+  margin-bottom: 2rem;
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: var(--text-secondary);
+  text-align: justify;
+  position: relative;
+  z-index: 2;
+}
+
+.histoire p:first-child {
+  font-size: 1.2rem;
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.histoire p:last-child {
+  margin-bottom: 0;
+  position: relative;
+  padding-left: 2rem;
+}
+
+.histoire p:last-child::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.5rem;
+  bottom: 0.5rem;
+  width: 3px;
+  background: var(--primary-gradient);
+  border-radius: 2px;
+}
+
+/*  SECTION LECTURE AVEC DESIGN MODULAIRE  */
+.lecture {
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  margin: 3rem auto;
+  padding: 4rem;
+  max-width: 85%;
+  border-radius: 24px;
+  box-shadow: var(--shadow-intense);
+  position: relative;
+}
+
+.lecture::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100px;
+  height: 100px;
+  background: var(--secondary-gradient);
+  border-radius: 0 24px 0 100px;
+  opacity: 0.1;
+}
+
+.lire {
+  font-size: 2.8rem;
+  font-weight: 700;
+  background: var(--secondary-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-align: center;
+  margin-bottom: 3rem;
+  position: relative;
+  display: inline-block;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.lire::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 25%;
+  width: 50%;
+  height: 3px;
+  background: var(--secondary-gradient);
+  border-radius: 2px;
+}
+
+.lecture p {
+  margin-bottom: 2rem;
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: var(--text-secondary);
+  text-align: justify;
+}
+
+.lecture p:first-of-type {
+  background: var(--card-bg);
+  border: 1px solid var(--glass-border);
+  padding: 2rem;
+  border-radius: 16px;
+  font-style: italic;
+  color: var(--text-primary);
+  position: relative;
+  overflow: hidden;
+}
+
+.lecture p:first-of-type::before {
+  content: '"';
+  position: absolute;
+  top: -20px;
+  left: 20px;
+  font-size: 6rem;
+  color: var(--text-secondary);
+  opacity: 0.3;
+  font-family: serif;
+}
+
+/*  SEPARATEUR INTELLIGENT AVANCE  */
+.saut_intelligent {
+  border: none;
+  height: 2px;
+  background: linear-gradient(90deg, 
+    transparent, 
+    var(--glass-border), 
+    var(--accent-gradient), 
+    var(--glass-border), 
+    transparent);
+  margin: 3rem 0;
+  position: relative;
+}
+
+.saut_intelligent::before {
+  content: '✧';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--dark-bg);
+  padding: 0 1rem;
+  color: var(--text-secondary);
+  font-size: 1.2rem;
+}
+
+/*  SECTION LECTURE INTELLIGENTE AVEC CARDS ANIMEES  */
+.lecture_intelligent {
+  position: relative;
+}
+
+.lecture_intelligent p {
+  background: var(--card-bg);
+  border: 1px solid var(--glass-border);
+  padding: 2rem;
+  border-radius: 16px;
+  margin-bottom: 2rem;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  position: relative;
+  overflow: hidden;
+}
+
+.lecture_intelligent p::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 0;
+  background: var(--primary-gradient);
+  opacity: 0.1;
+  transition: width 0.4s ease;
+}
+
+.lecture_intelligent p:hover {
+  transform: translateX(10px) translateY(-5px);
+  border-color: rgba(102, 126, 234, 0.3);
+  box-shadow: 
+    0 10px 30px rgba(0, 0, 0, 0.3),
+    0 0 0 1px rgba(102, 126, 234, 0.1);
+}
+
+.lecture_intelligent p:hover::before {
+  width: 100%;
+}
+
+.lecture_intelligent p strong {
+  color: #fff;
+  font-weight: 600;
+  background: var(--primary-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.lecture_intelligent a {
+  color: #4facfe;
+  text-decoration: none;
+  font-weight: 500;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.lecture_intelligent a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--accent-gradient);
+  transition: width 0.3s ease;
+}
+
+.lecture_intelligent a:hover {
+  color: #00f2fe;
+}
+
+.lecture_intelligent a:hover::after {
+  width: 100%;
+}
+
+/*  PIED DE PAGE AVEC DESIGN ARCHITECTURAL  */
+.footer {
+  background: var(--darker-bg);
+  border-top: 1px solid var(--glass-border);
+  padding: 4rem 2rem;
+  margin-top: 5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--primary-gradient);
+}
+
+.footer::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 20% 80%, rgba(102, 126, 234, 0.05) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(118, 75, 162, 0.05) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.footer p {
+  margin-bottom: 1.5rem;
+  font-size: 1rem;
+  color: var(--text-secondary);
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+
+.footer a {
+  color: var(--text-primary);
+  text-decoration: none;
+  transition: all 0.3s ease;
+  position: relative;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+}
+
+.footer a:hover {
+  color: #fff;
+  background: var(--primary-gradient);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+/* ANIMATIONS ET RESPONSIVE AVANCE  */
+@media (max-width: 1200px) {
+  .title h1 { font-size: 4rem; }
+  .histoire, .lecture { max-width: 90%; padding: 3rem; }
+}
+
+@media (max-width: 768px) {
+  .title h1 { font-size: 3rem; letter-spacing: 2px; }
+  .title h2 { font-size: 1.1rem; letter-spacing: 4px; }
+  .lire { font-size: 2.2rem; }
+  .histoire, .lecture { padding: 2rem; margin: 2rem auto; }
+  .logo img { width: 120px; height: 120px; }
+}
+
+@media (max-width: 480px) {
+  .title h1 { font-size: 2.2rem; }
+  .title h2 { font-size: 0.9rem; letter-spacing: 2px; }
+  .title h2::before, .title h2::after { display: none; }
+  .lire { font-size: 1.8rem; }
+  .histoire p, .lecture p { font-size: 1rem; text-align: left; }
+}
+
+/* Animations d'apparition sophistiquées */
+@keyframes slideUpFade {
+  from {
+    opacity: 0;
+    transform: translateY(50px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.logo { animation: slideUpFade 0.8s ease-out 0.1s both; }
+.title { animation: slideUpFade 0.8s ease-out 0.3s both; }
+.histoire { animation: slideUpFade 0.8s ease-out 0.5s both; }
+.lecture { animation: slideUpFade 0.8s ease-out 0.7s both; }
+.footer { animation: slideUpFade 0.8s ease-out 0.9s both; }
+
+/* Effets de parallaxe subtils */
+@media (prefers-reduced-motion: no-preference) {
+  .logo img {
+    transition: transform 0.3s ease;
+  }
+  
+  .histoire:hover, .lecture:hover {
+    transform: translateY(-2px);
+    transition: transform 0.3s ease;
+  }
+}
+
+/* Support des navigateurs modernes */
+@supports (backdrop-filter: blur(20px)) {
+  .histoire, .lecture {
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+}
+
+@supports not (backdrop-filter: blur(20px)) {
+  .histoire, .lecture {
+    background: rgba(10, 10, 10, 0.95);
+  }
+}
